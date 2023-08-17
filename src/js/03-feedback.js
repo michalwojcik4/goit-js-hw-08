@@ -19,15 +19,14 @@ function dataForm(e) {
     localStorage.setItem(keyDataForm, JSON.stringify(user));
 };
 
-function savedLocalStorage(){
+function savedLocalStorage(e){
     try{
         const savedData = JSON.parse(localStorage.getItem(keyDataForm));
-        const emailForm = document.querySelector('.feedback-form input');
-        const messageForm = document.querySelector('.feedback-form textarea');
+        const {elements: {email, message}} = form;
     
         if(savedData){
-            emailForm.value = savedData.email;
-            messageForm.value = savedData.message;
+            email.value = savedData.email;
+            message.value = savedData.message;
         }
 
     }catch (error) {
@@ -40,7 +39,9 @@ function submitForm(e){
     const {elements: {email, message}} = e.currentTarget;
 
     if(email.value === ''){
-        return alert('Podaj email!');
+        return alert('Podaj email!')
+    }else if(message.value === ''){
+        return alert('Uzupełnij pole message!')
     }
 
     try{
@@ -52,5 +53,6 @@ function submitForm(e){
 
     email.value = '';
     message.value = '';
-    localStorage.removeItem(keyDataForm); 
+    localStorage.removeItem(keyDataForm);
+    alert('Formularz wysłamy z sukcesem :)');
 };

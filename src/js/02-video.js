@@ -13,12 +13,16 @@ player.on('timeupdate', throttle(function() {
     });
 }, 1000));
 
-const currentTime = localStorage.getItem(keyCurrentTime)
-player.setCurrentTime(currentTime).then().catch(function(error) {
-    switch (error.message) {
-        case 'RangeError':
-            break;
-        default:
-            break;
-    }
-});
+const currentTime = parseFloat(localStorage.getItem(keyCurrentTime));
+if(!currentTime){
+    return
+}else{
+    player.setCurrentTime(currentTime).then().catch(function(error) {
+        switch (error.message) {
+          case 'RangeError':
+              break;
+          default:
+               break;
+        }
+    })
+};
